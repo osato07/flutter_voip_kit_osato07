@@ -151,8 +151,10 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/flutter_voip_kit"
-      relative: true
-    source: path
+      ref: HEAD
+      resolved-ref: a0736fd62a43c4ae6e31fa055ecc15e2128bfdf9
+      url: "https://github.com/osato07/flutter_voip_kit_osato07.git"
+    source: git
     version: "0.0.1"
   flutter_web_plugins:
     dependency: transitive

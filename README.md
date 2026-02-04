@@ -3,7 +3,7 @@
 This project provides a "ready-to-use" implementation for cross-platform VoIP calls (Audio/Video) using Flutter, Firebase, and CallKit/ConnectionService.
 
 ## 🌟 Features
-- **Library-based Architecture**: Core logic is encapsulated in `packages/flutter_voip_kit`.
+- **Library-based Architecture**: Core logic is encapsulated in `packages/flutter_voip_kit_osato07`.
 - **iOS**: Native `PKPushRegistry` integration for standard-compliant VoIP handling.
 - **Android**: High-priority FCM Data Message handling with full-screen intent support.
 
@@ -69,7 +69,7 @@ If you want to read certificates directly in `index.ts`:
 2.  Place it in: `android/app/google-services.json`.
 
 ### 2. Permissions (Automated)
-The library `flutter_voip_kit` automatically injects required permissions:
+The library `flutter_voip_kit_osato07` automatically injects required permissions:
 -   `FOREGROUND_SERVICE`
 -   `WAKE_LOCK`
 -   `POST_NOTIFICATIONS`
@@ -110,8 +110,8 @@ firebase deploy --only functions
 In `pubspec.yaml`:
 ```yaml
 dependencies:
-  flutter_voip_kit:
-    path: ./packages/flutter_voip_kit
+  flutter_voip_kit_osato07:
+    path: ./packages/flutter_voip_kit_osato07
 ```
 
 ### 2. Initialize

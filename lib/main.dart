@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_voip_kit/flutter_voip_kit.dart';
+import 'package:flutter_voip_kit_osato07/flutter_voip_kit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

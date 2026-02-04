@@ -7,8 +7,10 @@ environment:
   sdk: ^3.10.7
 
 dependencies:
-  flutter_voip_kit:
-    path: ./packages/flutter_voip_kit
+  flutter_voip_kit_osato07:
+    git:
+      url: https://github.com/osato07/flutter_voip_kit_osato07.git
+      path: packages/flutter_voip_kit
 
 dev_dependencies:
   flutter_test:
