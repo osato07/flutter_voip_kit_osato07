@@ -168,13 +168,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_voip_kit:
+  flutter_voip_kit_osato07:
     dependency: "direct main"
     description:
       path: ".."
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.1.7"
   flutter_web_plugins:
     dependency: transitive
     description: flutter

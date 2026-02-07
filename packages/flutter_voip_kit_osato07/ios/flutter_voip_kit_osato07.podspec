@@ -3,15 +3,15 @@
 # Run `pod lib lint flutter_voip_kit.podspec` to validate before publishing.
 #
 Pod::Spec.new do |s|
-  s.name             = 'flutter_voip_kit'
-  s.version          = '0.0.1'
-  s.summary          = 'A new Flutter plugin project.'
+  s.name             = 'flutter_voip_kit_osato07'
+  s.version          = '0.1.7'
+  s.summary          = 'A comprehensive VoIP kit for Flutter enabling iOS CallKit/PushKit and Android ConnectionService/FCM.'
   s.description      = <<-DESC
-A new Flutter plugin project.
+A comprehensive VoIP kit for Flutter enabling iOS CallKit/PushKit and Android ConnectionService/FCM.
                        DESC
-  s.homepage         = 'http://example.com'
+  s.homepage         = 'https://github.com/osato07/flutter_voip_kit_osato07'
   s.license          = { :file => '../LICENSE' }
-  s.author           = { 'Your Company' => 'email@example.com' }
+  s.author           = { 'Satoshi' => 'email@example.com' }
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'

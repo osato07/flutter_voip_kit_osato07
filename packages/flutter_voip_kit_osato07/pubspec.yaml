@@ -1,6 +1,6 @@
 name: flutter_voip_kit_osato07
 description: A comprehensive VoIP kit for Flutter enabling iOS CallKit/PushKit and Android ConnectionService/FCM.
-version: 0.1.1
+version: 0.1.7
 homepage: https://github.com/osato07/flutter_voip_kit_osato07
 repository: https://github.com/osato07/flutter_voip_kit_osato07
 issue_tracker: https://github.com/osato07/flutter_voip_kit_osato07/issues

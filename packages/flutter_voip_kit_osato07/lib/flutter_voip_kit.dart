@@ -30,6 +30,22 @@ class FlutterVoipKit {
   final Uuid _uuid = const Uuid();
   bool _isInitialized = false;
 
+  /// VoIP Token (iOS only)
+  String? _voipToken;
+
+  /// Stream controller for VoIP token updates
+  final StreamController<String> _tokenStreamController =
+      StreamController<String>.broadcast();
+
+  /// Get VoIP Token (iOS only)
+  /// Returns null on Android or if not yet received
+  Future<String?> getVoIPToken() async {
+    return _voipToken;
+  }
+
+  /// Stream of VoIP token updates (iOS only)
+  Stream<String> get onTokenRaw => _tokenStreamController.stream;
+
   /// Initialize the VoIP service
   /// [onEvent] is a callback when the user accepts the call
   Future<void> initialize({Function(CallEvent)? onEvent}) async {
@@ -64,8 +80,13 @@ class FlutterVoipKit {
       await _channel.invokeMethod('initialize');
       _channel.setMethodCallHandler((call) async {
         if (call.method == 'onVoipToken') {
-          print("Received VoIP Token via Plugin: ${call.arguments}");
-          // TODO: Expose this token to the user
+          final token = call.arguments as String?;
+          print("Received VoIP Token via Plugin: $token");
+
+          if (token != null) {
+            _voipToken = token;
+            _tokenStreamController.add(token);
+          }
         } else if (call.method == 'onIncomingPush') {
           try {
             final data = Map<String, dynamic>.from(call.arguments);
@@ -85,6 +106,11 @@ class FlutterVoipKit {
     });
 
     _isInitialized = true;
+  }
+
+  /// Dispose the VoIP service
+  void dispose() {
+    _tokenStreamController.close();
   }
 
   /// Show incoming call UI (Uses generic data map)
@@ -131,7 +157,55 @@ class FlutterVoipKit {
     await FlutterCallkitIncoming.showCallkitIncoming(params);
   }
 
-  /// Get FCM Token (For Android mostly)
+  /// Start an outgoing call
+  Future<void> startCall({
+    required String uuid,
+    required String handle,
+    String? nameCaller,
+    String? avatar,
+    bool hasVideo = false,
+  }) async {
+    final params = CallKitParams(
+      id: uuid,
+      nameCaller: nameCaller ?? handle,
+      handle: handle,
+      type: 1, // 1 = Outgoing
+      extra: <String, dynamic>{'userId': handle},
+      ios: IOSParams(handleType: 'generic', supportsVideo: hasVideo),
+    );
+    await FlutterCallkitIncoming.startCall(params);
+  }
+
+  /// End a specific call by UUID
+  Future<void> endCall(String uuid) async {
+    await FlutterCallkitIncoming.endCall(uuid);
+  }
+
+  /// End all active calls
+  Future<void> endAllCalls() async {
+    await FlutterCallkitIncoming.endAllCalls();
+  }
+
+  /// Mute or Unmute a call
+  Future<void> muteCall(String uuid, bool isMuted) async {
+    await FlutterCallkitIncoming.muteCall(uuid, isMuted: isMuted);
+  }
+
+  /// Hold or Unhold a call
+  Future<void> holdCall(String uuid, bool isOnHold) async {
+    await FlutterCallkitIncoming.holdCall(uuid, isOnHold: isOnHold);
+  }
+
+  /// Get list of active calls
+  Future<List<dynamic>> activeCalls() async {
+    return await FlutterCallkitIncoming.activeCalls();
+  }
+
+  /// Stream of call events
+  Stream<CallEvent?> get onEvent => FlutterCallkitIncoming.onEvent;
+
+  /// Get FCM Token (For Android / iOS Standard Notifications)
+  /// NOTE: For iOS VoIP notifications, use [getVoIPToken] instead.
   Future<String?> getFcmToken() async {
     return await FirebaseMessaging.instance.getToken();
   }
